@@ -1,4 +1,4 @@
-package com.mayurappstudios.chattychatroom
+package com.mayurappstudios.chattychatroom.view
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
