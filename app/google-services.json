@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "939689102067",
+    "project_id": "chattychatroom-2942f",
+    "storage_bucket": "chattychatroom-2942f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:939689102067:android:516253128e156938684586",
+        "android_client_info": {
+          "package_name": "com.mayurappstudios.chattychatroom"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxWjkX13UXNU6825se62EE40R3fJRDz68"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
