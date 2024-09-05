@@ -22,13 +22,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun SignUpScreen(onNavigateToLogin : () -> Unit = {}) {
+fun LoginScreen(onNaviagteToSignUp: () -> Unit = {}) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var firstName by remember { mutableStateOf("") }
-    var lastName by remember { mutableStateOf("") }
     Column(
-        modifier = androidx.compose.ui.Modifier
+        modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
         verticalArrangement = Arrangement.Center,
@@ -37,7 +35,7 @@ fun SignUpScreen(onNavigateToLogin : () -> Unit = {}) {
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { androidx.compose.material3.Text("Email") },
+            label = { Text("Email") },
             modifier = Modifier
                 .padding(8.dp)
                 .fillMaxWidth()
@@ -45,51 +43,33 @@ fun SignUpScreen(onNavigateToLogin : () -> Unit = {}) {
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { androidx.compose.material3.Text("Password") },
-            modifier = Modifier
-                .padding(8.dp)
-                .fillMaxWidth()
-        )
-        OutlinedTextField(
-            value = firstName,
-            onValueChange = { firstName = it },
-            label = { androidx.compose.material3.Text("First Name") },
-            modifier = Modifier
-                .padding(8.dp)
-                .fillMaxWidth()
-        )
-        OutlinedTextField(
-            value = lastName,
-            onValueChange = { lastName = it },
-            label = { androidx.compose.material3.Text("Last Name") },
+            label = { Text("Password") },
             modifier = Modifier
                 .padding(8.dp)
                 .fillMaxWidth()
         )
         Button(
-            onClick = {
-                email = ""
-                password = ""
-                firstName = ""
-                lastName = ""
-            }, modifier = Modifier
+            onClick = { /* Handle login */ },
+            modifier = Modifier
                 .padding(8.dp)
                 .fillMaxWidth()
         ) {
-            androidx.compose.material3.Text("Sign Up")
-
+            Text("Login")
         }
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
+
         Text(
-            "Already have an account? Log in",
-            modifier = Modifier.clickable {
-                onNavigateToLogin()
-            })
+            text = "Don't have an account? Sign up.",
+            modifier = Modifier
+                .padding(8.dp)
+                .clickable {
+                    onNaviagteToSignUp()
+                }
+        )
     }
 }
-
 @Preview(showBackground = true)
 @Composable
-fun SignUpScreenPreview() {
-    SignUpScreen()
+fun LoginScreenPreview() {
+    LoginScreen()
 }
