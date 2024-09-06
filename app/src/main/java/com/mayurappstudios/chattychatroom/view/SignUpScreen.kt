@@ -20,9 +20,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.mayurappstudios.chattychatroom.viewmodel.AuthViewModel
 
 @Composable
-fun SignUpScreen(modifier: Modifier = Modifier, onNavigateToLogin : () -> Unit = {}) {
+fun SignUpScreen(
+    modifier: Modifier = Modifier,
+    authViewModel: AuthViewModel? =  null,
+    onNavigateToLogin: () -> Unit = {}
+) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var firstName by remember { mutableStateOf("") }
@@ -68,6 +73,7 @@ fun SignUpScreen(modifier: Modifier = Modifier, onNavigateToLogin : () -> Unit =
         )
         Button(
             onClick = {
+                authViewModel?.singUp(email, password, firstName, lastName)
                 email = ""
                 password = ""
                 firstName = ""

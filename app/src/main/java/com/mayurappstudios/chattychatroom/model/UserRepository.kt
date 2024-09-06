@@ -23,4 +23,12 @@ class UserRepository(private val _auth: FirebaseAuth, private val _firestore: Fi
     private suspend fun saveUser(user: User) {
         _firestore.collection("users").document(user.email).set(user).await()
     }
+
+    suspend fun login(email: String, password: String): Result<Boolean> =
+        try {
+            _auth.signInWithEmailAndPassword(email, password).await()
+            Result.Success(true)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
 }
