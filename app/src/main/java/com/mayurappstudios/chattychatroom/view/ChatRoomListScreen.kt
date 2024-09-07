@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,6 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mayurappstudios.chattychatroom.model.Room
 
 @Composable
 fun ChatRoomListScreen(modifier: Modifier = Modifier) {
@@ -99,9 +101,27 @@ fun ChatRoomListScreen(modifier: Modifier = Modifier) {
         )
     }
 }
-@Composable
-fun RootItem() {
 
+@Composable
+fun RootItem(room: Room) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(text = room.name, fontSize = 16.sp, fontWeight = FontWeight.Normal)
+        OutlinedButton(onClick = { /*TODO*/
+        }) {
+            Text("Join")
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun RootItemPreview() {
+    RootItem(Room("1", "Room 1"))
 }
 
 @Preview(showBackground = true)
