@@ -21,6 +21,7 @@ class RoomViewModel : ViewModel() {
     fun createRoom(name : String){
         viewModelScope.launch{
             roomRepository.createRoom(name)
+            loadRooms()
         }
     }
     fun loadRooms(){
