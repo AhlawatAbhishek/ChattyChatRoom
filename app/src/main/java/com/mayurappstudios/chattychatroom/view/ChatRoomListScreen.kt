@@ -32,7 +32,8 @@ import com.mayurappstudios.chattychatroom.model.Room
 import com.mayurappstudios.chattychatroom.viewmodel.RoomViewModel
 
 @Composable
-fun ChatRoomListScreen(modifier: Modifier = Modifier, roomViewModel: RoomViewModel = viewModel()) {
+fun ChatRoomListScreen(modifier: Modifier = Modifier, roomViewModel: RoomViewModel = viewModel(),
+                       onJoinClicked: (Room) -> Unit = {}) {
     var showDialog by remember { mutableStateOf(false) }
     var name by remember { mutableStateOf("") }
     val rooms by roomViewModel.rooms.observeAsState(emptyList<Room>())
@@ -47,7 +48,7 @@ fun ChatRoomListScreen(modifier: Modifier = Modifier, roomViewModel: RoomViewMod
         //Here we will display the list of chat rooms
         LazyColumn() {
             items(rooms) { room ->
-                RootItem(room)
+                RootItem(room = room, onJoinClicked = onJoinClicked)
             }
 
         }
@@ -112,7 +113,7 @@ fun ChatRoomListScreen(modifier: Modifier = Modifier, roomViewModel: RoomViewMod
 }
 
 @Composable
-fun RootItem(room: Room) {
+fun RootItem(room: Room, onJoinClicked: (Room) -> Unit = {}) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -120,7 +121,8 @@ fun RootItem(room: Room) {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(text = room.name, fontSize = 16.sp, fontWeight = FontWeight.Normal)
-        OutlinedButton(onClick = { /*TODO*/
+        OutlinedButton(onClick = {
+            onJoinClicked(room)
         }) {
             Text("Join")
         }

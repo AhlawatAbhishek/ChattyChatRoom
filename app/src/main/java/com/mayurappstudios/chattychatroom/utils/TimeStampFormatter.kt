@@ -8,7 +8,7 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 @RequiresApi(Build.VERSION_CODES.O)
-private fun formatTimeStamp(timeStamp : Long) : String{
+fun formatTimeStamp(timeStamp : Long) : String{
     val messageDateTime = LocalDateTime.ofInstant(ofEpochSecond(timeStamp), ZoneId.systemDefault())
     val currentDateTime = LocalDateTime.now()
     return when{
