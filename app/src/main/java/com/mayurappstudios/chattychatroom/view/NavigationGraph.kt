@@ -29,7 +29,13 @@ fun NavigationGraph(
             }
         }
         composable(Screen.ChatRoom.route) {
-            ChatRoomListScreen(modifier = modifier)
+            ChatRoomListScreen(modifier = modifier){
+                navController.navigate("${Screen.Chat.route}/${it.id}}")
+            }
+        }
+        composable("${Screen.Chat.route}/{roomId}") { backStackEntry ->
+            val roomId = backStackEntry.arguments?.getString("roomId") ?: ""
+            ChatScreen(modifier = modifier, roomId = roomId)
         }
     }
 

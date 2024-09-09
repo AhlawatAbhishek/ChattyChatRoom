@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun ChatScreen(modifier: Modifier = Modifier) {
+fun ChatScreen(modifier: Modifier = Modifier,  roomId : String = "") {
     var text by remember { mutableStateOf("") }
     Column(modifier = Modifier
         .fillMaxSize()
