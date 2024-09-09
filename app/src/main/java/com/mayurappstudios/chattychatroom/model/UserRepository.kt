@@ -31,4 +31,20 @@ class UserRepository(private val _auth: FirebaseAuth, private val _firestore: Fi
         } catch (e: Exception) {
             Result.Error(e)
         }
+    suspend fun getCurrentUser(): Result<User> =
+        try {
+            val email = _auth.currentUser?.email
+            if (email != null) {
+                val user = _firestore.collection("users").document(email).get().await().toObject(User::class.java)
+                if (user != null) {
+                    Result.Success(user)
+                } else {
+                    Result.Error(Exception("User not found"))
+                }
+            } else {
+                Result.Error(Exception("User not found"))
+            }
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
 }

@@ -14,37 +14,53 @@ import com.mayurappstudios.chattychatroom.model.UserRepository
 import kotlinx.coroutines.launch
 
 class MessageViewModel : ViewModel() {
-    private val _messageRepository : MessageRepository
-    private val _userRepository : UserRepository
-    init{
+    private val _messageRepository: MessageRepository
+    private val _userRepository: UserRepository
+
+    init {
         _messageRepository = MessageRepository(FirestoreProvider.instance())
         _userRepository = UserRepository(FirebaseAuth.getInstance(), FirestoreProvider.instance())
         loadCurrentUser()
     }
+
     private val _messages = MutableLiveData<List<Message>>()
-    val messages : MutableLiveData<List<Message>> = _messages
+    val messages: MutableLiveData<List<Message>> = _messages
 
     private val _roomId = MutableLiveData<String>()
     private val _currentUser = MutableLiveData<User>()
-    val currentUser : MutableLiveData<User> get() = _currentUser
+    val currentUser: MutableLiveData<User> get() = _currentUser
 
-    private fun loadCurrentUser{
+    private fun loadCurrentUser() {
         viewModelScope.launch {
-            when(val result = _userRepository.getCurrentUser()){
-                is Success<*> -> _currentUser.value = result.data
+            when (val result = _userRepository.getCurrentUser()) {
+                is Success -> _currentUser.value = result.data
                 is Error -> {
                     // Handle error
                 }
             }
         }
     }
-    fun loadMessages(){
-        viewModelScope.launch {
-            if(_roomId.value != null){
-                if(_roomId != null){
 
+    fun loadMessages() {
+        viewModelScope.launch {
+            if (_roomId.value != null) {
+                _messageRepository.getChatMessages(_roomId.value.toString()).collect {
+                    _messages.value = it
                 }
             }
         }
     }
+    fun sendMessage(text : String){
+        if(_currentUser.value != null){
+            val message = Message(
+                senderFirstName = _currentUser.value!!.firstName,
+                senderId = _currentUser.value!!.email,
+                text = text
+                )
+        }
+        viewModelScope.launch(){
+
+        }
+    }
+
 }
