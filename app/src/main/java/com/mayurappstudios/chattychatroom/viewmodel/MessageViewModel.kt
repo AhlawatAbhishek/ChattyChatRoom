@@ -50,6 +50,7 @@ class MessageViewModel : ViewModel() {
             if (_roomId.value != null) {
                 _messageRepository.getChatMessages(_roomId.value.toString()).collect {
                     _messages.value = it
+                    Log.d("MessageViewModel", "Messages size: ${it.size}")
                 }
             }
         }

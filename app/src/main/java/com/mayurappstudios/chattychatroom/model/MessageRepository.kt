@@ -14,20 +14,44 @@ class MessageRepository(private val firestore: FirebaseFirestore) {
     } catch (e: Exception) {
         Result.Error(e)
     }
-
     fun getChatMessages(roomId: String): Flow<List<Message>> = callbackFlow {
         Log.d("MessageRepository", "Room ID: $roomId")
         val subscription = firestore.collection("rooms").document(roomId)
             .collection("messages")
-            .orderBy("timestamp")
-            .addSnapshotListener { querySnapshot, _ ->
-                querySnapshot?.let {
-                    trySend(it.documents.mapNotNull { doc ->
-                        doc.toObject(Message::class.java)!!.copy()
-                    }).isSuccess
+            .orderBy("timeStamp")
+            .addSnapshotListener { querySnapshot, error ->
+                if (error != null) {
+                    Log.e("MessageRepository", "Listen failed.", error)
+                    return@addSnapshotListener
+                }
+                if (querySnapshot != null) {
+                    Log.d("MessageRepository", "QuerySnapshot size: ${querySnapshot.size()}")
+                    val messages = querySnapshot.documents.mapNotNull { document ->
+                        document.toObject(Message::class.java)
+                    }
+                    Log.d("MessageRepository", "Messages size: ${messages.size}")
+                    trySend(messages).isSuccess
+                } else {
+                    Log.d("MessageRepository", "QuerySnapshot is null")
                 }
             }
 
         awaitClose { subscription.remove() }
     }
+
+//    fun getChatMessages(roomId: String): Flow<List<Message>> = callbackFlow {
+//        Log.d("MessageRepository", "Room ID: $roomId")
+//        val subscription = firestore.collection("rooms").document(roomId)
+//            .collection("messages")
+//            .orderBy("timestamp")
+//            .addSnapshotListener { querySnapshot, _ ->
+//                querySnapshot?.let {
+//                    trySend(it.documents.map { doc ->
+//                        doc.toObject(Message::class.java)!!.copy()
+//                    }).isSuccess
+//                }
+//            }
+//
+//        awaitClose { subscription.remove() }
+//    }
 }
