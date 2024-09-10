@@ -34,6 +34,7 @@ import com.mayurappstudios.chattychatroom.viewmodel.MessageViewModel
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun ChatScreen(modifier: Modifier = Modifier,  roomId : String = "", messageViewModel: MessageViewModel = viewModel()) {
+    Log.d("ChatScreen", "id of the room: $roomId")
     var text by remember { mutableStateOf("") }
     val messages by messageViewModel.messages.observeAsState(emptyList())
     messageViewModel.setRoomId(roomId)

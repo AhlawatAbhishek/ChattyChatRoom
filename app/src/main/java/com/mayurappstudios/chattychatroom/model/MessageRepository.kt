@@ -1,5 +1,6 @@
 package com.mayurappstudios.chattychatroom.model
 
+import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -15,14 +16,18 @@ class MessageRepository(private val firestore: FirebaseFirestore) {
     }
 
     fun getChatMessages(roomId: String): Flow<List<Message>> = callbackFlow {
+        Log.d("MessageRepository", "Room ID: $roomId")
         val subscription = firestore.collection("rooms").document(roomId)
-            .collection("messages").orderBy("timestamp").addSnapshotListener { querySnapshot, _ ->
+            .collection("messages")
+            .orderBy("timestamp")
+            .addSnapshotListener { querySnapshot, _ ->
                 querySnapshot?.let {
-                    trySend(it.documents.map {
-                        it.toObject(Message::class.java)!!.copy()
+                    trySend(it.documents.mapNotNull { doc ->
+                        doc.toObject(Message::class.java)!!.copy()
                     }).isSuccess
                 }
             }
+
         awaitClose { subscription.remove() }
     }
 }
