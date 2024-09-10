@@ -1,5 +1,6 @@
 package com.mayurappstudios.chattychatroom.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -50,17 +51,33 @@ class MessageViewModel : ViewModel() {
             }
         }
     }
-    fun sendMessage(text : String){
-        if(_currentUser.value != null){
+
+    fun sendMessage(text: String) {
+        Log.d("MessageViewModel User: ", "Current user: ${_currentUser.value}")
+        if (_currentUser.value != null) {
+            Log.d("MessageViewModel", "Sending message: $text")
             val message = Message(
                 senderFirstName = _currentUser.value!!.firstName,
                 senderId = _currentUser.value!!.email,
                 text = text
-                )
-        }
-        viewModelScope.launch(){
+            )
+            viewModelScope.launch() {
+                when (_messageRepository.sendMessage(_roomId.value.toString(), message)) {
+                    is Success -> {
+                        // Handle success
+                        Unit;
+                    }
 
+                    is Error -> {
+                        // Handle error
+                    }
+                }
+            }
         }
     }
 
+    fun setRoomId(roomId: String) {
+        _roomId.value = roomId
+        loadMessages()
+    }
 }

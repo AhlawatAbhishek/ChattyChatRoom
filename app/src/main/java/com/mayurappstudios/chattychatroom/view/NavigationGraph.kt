@@ -1,5 +1,7 @@
 package com.mayurappstudios.chattychatroom.view
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -8,6 +10,7 @@ import androidx.navigation.compose.composable
 import com.mayurappstudios.chattychatroom.viewmodel.AuthViewModel
 
 
+@RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun NavigationGraph(
     modifier: Modifier = Modifier,
