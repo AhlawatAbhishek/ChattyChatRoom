@@ -21,6 +21,7 @@ class MessageViewModel : ViewModel() {
     init {
         _messageRepository = MessageRepository(FirestoreProvider.instance())
         _userRepository = UserRepository(FirebaseAuth.getInstance(), FirestoreProvider.instance())
+        Log.d("MessageViewModel", "Loading current user")
         loadCurrentUser()
     }
 
@@ -33,10 +34,12 @@ class MessageViewModel : ViewModel() {
 
     private fun loadCurrentUser() {
         viewModelScope.launch {
+            Log.d("MessageViewModel", "Inside Coroutine for loading current user")
             when (val result = _userRepository.getCurrentUser()) {
                 is Success -> _currentUser.value = result.data
                 is Error -> {
                     // Handle error
+                    Log.d("MessageViewModel", "Error loading current user")
                 }
             }
         }

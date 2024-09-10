@@ -68,6 +68,11 @@ fun ChatScreen(modifier: Modifier = Modifier,  roomId : String = "", messageView
                 onClick = {
                     if (text.isNotEmpty()) {
                         //Send the message
+                        if(messageViewModel != null){
+                            Log.d("ChatScreen", "MessageViewModel is not null")
+                        } else {
+                            Log.d("ChatScreen", "MessageViewModel is null")
+                        }
                         messageViewModel.sendMessage(text.trim())
                         Log.d("ChatScreen", "Message sent: $text")
                         text = ""

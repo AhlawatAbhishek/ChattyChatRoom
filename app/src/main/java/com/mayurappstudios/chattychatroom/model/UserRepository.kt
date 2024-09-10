@@ -1,5 +1,6 @@
 package com.mayurappstudios.chattychatroom.model
 
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
@@ -31,12 +32,19 @@ class UserRepository(private val _auth: FirebaseAuth, private val _firestore: Fi
         } catch (e: Exception) {
             Result.Error(e)
         }
+
     suspend fun getCurrentUser(): Result<User> =
         try {
             val email = _auth.currentUser?.email
+            if (email != null)
+                Log.d("UserRepository", "Current user email: $email")
+            else
+                Log.d("UserRepository", "Current user email: null")
             if (email != null) {
-                val user = _firestore.collection("users").document(email).get().await().toObject(User::class.java)
+                val user = _firestore.collection("users").document(email).get().await()
+                    .toObject(User::class.java)
                 if (user != null) {
+                    Log.d("UserRepository", "User found, userEmail: ${user.email}")
                     Result.Success(user)
                 } else {
                     Result.Error(Exception("User not found"))
@@ -45,6 +53,7 @@ class UserRepository(private val _auth: FirebaseAuth, private val _firestore: Fi
                 Result.Error(Exception("User not found"))
             }
         } catch (e: Exception) {
+            Log.d("UserRepository", "Error getting current user: ")
             Result.Error(e)
         }
 }
