@@ -76,3 +76,29 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
+//rules of firestore to allow read and write
+/*
+rules_version = '2';
+
+service cloud.firestore {
+    match /databases/{database}/documents {
+        match /{document=**} {
+            allow read, write: if request.auth.uid != null;
+        }
+    }
+}
+*/
+
+//rules of firestore to deny read and write and stop the app temporarily
+/*
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: false;
+    }
+  }
+}
+
+* */
