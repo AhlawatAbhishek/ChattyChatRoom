@@ -1,7 +1,9 @@
-package com.mayurappstudios.chattychatroom.model
+package com.mayurappstudios.chattychatroom.repository
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
+import com.mayurappstudios.chattychatroom.model.Message
+import com.mayurappstudios.chattychatroom.model.Result
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.mayurappstudios.chattychatroom.dependencyinjection.FirestoreProvider
-import com.mayurappstudios.chattychatroom.model.UserRepository
+import com.mayurappstudios.chattychatroom.repository.UserRepository
 import kotlinx.coroutines.launch
 import com.mayurappstudios.chattychatroom.model.Result
 

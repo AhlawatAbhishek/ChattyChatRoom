@@ -7,7 +7,7 @@ import com.mayurappstudios.chattychatroom.model.Result.Success
 import com.mayurappstudios.chattychatroom.model.Result.Error
 import com.mayurappstudios.chattychatroom.dependencyinjection.FirestoreProvider
 import com.mayurappstudios.chattychatroom.model.Room
-import com.mayurappstudios.chattychatroom.model.RoomRepository
+import com.mayurappstudios.chattychatroom.repository.RoomRepository
 import kotlinx.coroutines.launch
 
 class RoomViewModel : ViewModel() {

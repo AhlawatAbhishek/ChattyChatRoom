@@ -1,8 +1,10 @@
-package com.mayurappstudios.chattychatroom.model
+package com.mayurappstudios.chattychatroom.repository
 
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.mayurappstudios.chattychatroom.model.Result
+import com.mayurappstudios.chattychatroom.model.User
 import kotlinx.coroutines.tasks.await
 
 class UserRepository(private val _auth: FirebaseAuth, private val _firestore: FirebaseFirestore) {

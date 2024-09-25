@@ -1,6 +1,8 @@
-package com.mayurappstudios.chattychatroom.model
+package com.mayurappstudios.chattychatroom.repository
 
 import com.google.firebase.firestore.FirebaseFirestore
+import com.mayurappstudios.chattychatroom.model.Result
+import com.mayurappstudios.chattychatroom.model.Room
 import kotlinx.coroutines.tasks.await
 
 class RoomRepository(private val firestore: FirebaseFirestore) {

@@ -7,11 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.mayurappstudios.chattychatroom.dependencyinjection.FirestoreProvider
 import com.mayurappstudios.chattychatroom.model.Message
-import com.mayurappstudios.chattychatroom.model.MessageRepository
+import com.mayurappstudios.chattychatroom.repository.MessageRepository
 import com.mayurappstudios.chattychatroom.model.Result.Success
 import com.mayurappstudios.chattychatroom.model.Result.Error
 import com.mayurappstudios.chattychatroom.model.User
-import com.mayurappstudios.chattychatroom.model.UserRepository
+import com.mayurappstudios.chattychatroom.repository.UserRepository
 import kotlinx.coroutines.launch
 
 class MessageViewModel : ViewModel() {
